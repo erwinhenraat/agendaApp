@@ -1,0 +1,72 @@
+name: Branch Protection Validation
+
+# This workflow helps validate that branch protection rules are being followed
+# It runs on pull requests targeting the development branch
+
+on:
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  validate-pr:
+    name: Validate Pull Request
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Validate branch name
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          echo "Pull request from branch: $BRANCH_NAME"
+          
+          # Check if branch name follows conventions
+          if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|refactor|docs)/.+ ]]; then
+            echo "✅ Branch name follows naming convention"
+          else
+            echo "⚠️  Branch name does not follow recommended convention"
+            echo "   Recommended: feature/, bugfix/, hotfix/, refactor/, or docs/"
+            echo "   Example: feature/add-new-event-type"
+          fi
+      
+      - name: Check for direct commits to development
+        run: |
+          # This is informational - actual protection is enforced by GitHub
+          echo "ℹ️  This PR will be merged into development after approval"
+          echo "ℹ️  Direct pushes to development are blocked by branch protection"
+      
+      - name: PR Information
+        run: |
+          echo "📋 Pull Request Information:"
+          echo "   From: ${{ github.head_ref }}"
+          echo "   To: ${{ github.base_ref }}"
+          echo "   Author: ${{ github.actor }}"
+          echo ""
+          echo "✅ Next steps:"
+          echo "   1. Code review by repository owner"
+          echo "   2. Approval required before merge"
+          echo "   3. Merge to development branch"
+
+  pr-labels:
+    name: Suggest Labels
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Suggest labels based on branch name
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          echo "Suggested labels for this PR:"
+          
+          if [[ "$BRANCH_NAME" =~ ^feature/ ]]; then
+            echo "  - enhancement"
+          elif [[ "$BRANCH_NAME" =~ ^bugfix/ ]] || [[ "$BRANCH_NAME" =~ ^hotfix/ ]]; then
+            echo "  - bug"
+          elif [[ "$BRANCH_NAME" =~ ^refactor/ ]]; then
+            echo "  - refactor"
+          elif [[ "$BRANCH_NAME" =~ ^docs/ ]]; then
+            echo "  - documentation"
+          fi
