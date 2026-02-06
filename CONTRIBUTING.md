@@ -1,13 +1,13 @@
-# Collaboration Guidelines - agendaApp
+# Samenwerking Richtlijnen - agendaApp
 
-## Branch Structure
+## Branch Structuur
 
-This repository uses the following branch structure:
+Deze repository gebruikt de volgende branch structuur:
 
 - **`development`**: De hoofdontwikkelingsbranch. Alle nieuwe features en fixes worden hier geïntegreerd.
 - **Feature branches**: Individuele branches voor nieuwe features of bugfixes.
 
-## Workflow voor Collaborators
+## Workflow voor Medewerkers
 
 ### 1. Een nieuwe branch maken
 
@@ -71,7 +71,7 @@ De `development` branch heeft de volgende bescherming:
 - ❌ Directe pushes zijn niet toegestaan
 - ✅ Pull requests zijn vereist
 - ✅ Review door de repository eigenaar is verplicht
-- ✅ Collaborators kunnen hun eigen branches maken en pushen
+- ✅ Medewerkers kunnen hun eigen branches maken en pushen
 
 ## Naamconventies voor Branches
 

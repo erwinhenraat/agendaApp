@@ -12,7 +12,7 @@ Dit is een Java applicatie met de volgende componenten:
 - `Main.java` - Hoofdprogramma
 - `Viewer.java` - Weergave functionaliteit
 
-## Voor Collaborators
+## Voor Medewerkers
 
 **Let op**: Deze repository gebruikt branch protection voor de `development` branch.
 
